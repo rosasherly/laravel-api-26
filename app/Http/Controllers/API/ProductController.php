@@ -42,7 +42,13 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product retrivied successfully',
+            'data' => new ProductResource($product),
+        ], Response::HTTP_OK);
     }
 
     /**
